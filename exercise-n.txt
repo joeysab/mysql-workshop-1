@@ -1,0 +1,162 @@
+Exercise 1:
+DONE
+
+
+Exercise 2:
+CREATE DATABASE decodemtl_test;
+CREATE DATABASE decodemtl_addressbook;
+
+
+Exercise 3:
+DROP DATABASE decodemtl_test;
+
+Exercise 4:
+SHOW DATABASES;
+
+Exercise 5:
+mysql> USE decodemtl_addressbook;
+Database changed
+
+mysql> CREATE TABLE Account (id INT);                                                                                     
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE Addressbook (id INT);                                                                                                
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE Entry (id INT);                                                                                                      
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE Test (id INT);                                                                                                       
+Query OK, 0 rows affected (0.02 sec)
+
+
+Exercise 6:
+mysql> DROP TABLE Test;
+Query OK, 0 rows affected (0.02 sec)
+
+Exercise 7:
+mysql> SHOW TABLES;
++---------------------------------+
+| Tables_in_decodemtl_addressbook |
++---------------------------------+
+| Account                         |
+| Addressbook                     |
+| Entry                           |
++---------------------------------+
+3 rows in set (0.00 sec)
+
+Exercise 8:
+
+mysql> ALTER TABLE Account ADD PRIMARY KEY (id);Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE Account;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| id    | int(11) | NO   | PRI | 0       |       |
++-------+---------+------+-----+---------+-------+
+1 row in set (0.01 sec)
+
+ALTER TABLE Account ADD COLUMN (email VARCHAR(255), password VARCHAR(40), createdOn DATETIME, modifiedOn DATETIME);mysql> ALTER TABLE Account ADD COLUMN (email VARCHAR(255), password VARCHAR(40), createdOn DATETIME, modifiedOn DATETIME);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE Account;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| id         | int(11)      | NO   | PRI | 0       |       |
+| email      | varchar(255) | YES  |     | NULL    |       |
+| password   | varchar(40)  | YES  |     | NULL    |       |
+| createdOn  | datetime     | YES  |     | NULL    |       |
+| modifiedOn | datetime     | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+ALTER TABLE Addressbook ADD PRIMARY KEY (id);
+
+mysql> ALTER TABLE Addressbook ADD PRIMARY KEY (id);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+mysql> DESCRIBE Addressbook;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| id    | int(11) | NO   | PRI | 0       |       |
++-------+---------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+
+mysql> ALTER TABLE Addressbook ADD FOREIGN KEY (accountId) REFERENCES Account(id);
+
+
+ALTER TABLE Entry ADD PRIMARY KEY (id);
+
+
+ALTER TABLE Enrty ADD FOREIGN KEY (addressBookId) REFERENCES Addressbook(id);
+
+
+
+mysql> ALTER TABLE Entry ADD FOREIGN KEY (addressBookId) REFERENCES Addressbook(id);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE Entry;+------------------+---------------------------------+------+-----+---------+-------+
+| Field            | Type                            | Null | Key | Default | Extra |
++------------------+---------------------------------+------+-----+---------+-------+
+| id               | int(11)                         | NO   | PRI | 0       |       |
+| addressBookId    | int(11)                         | YES  | MUL | NULL    |       |
+| firstName        | varchar(255)                    | YES  |     | NULL    |       |
+| lastName         | varchar(255)                    | YES  |     | NULL    |       |
+| birthday         | datetime                        | YES  |     | NULL    |       |
+| type             | enum('home','work','other')     | YES  |     | NULL    |       |
+| subtype          | enum('phone','address','email') | YES  |     | NULL    |       |
+| contentLineOne   | varchar(255)                    | YES  |     | NULL    |       |
+| contentLineTwo   | varchar(255)                    | YES  |     | NULL    |       |
+| contentLineThree | varchar(255)                    | YES  |     | NULL    |       |
+| contentLineFour  | varchar(255)                    | YES  |     | NULL    |       |
+| contentLineFive  | varchar(255)                    | YES  |     | NULL    |       |
++------------------+---------------------------------+------+-----+---------+-------+
+12 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Account MODIFY id INTEGER NOT NULL AUTO_INCREMENT;                                                                    
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Addressbook  MODIFY id INTEGER NOT NULL AUTO_INCREMENT;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Entry MODIFY id INTEGER NOT NULL AUTO_INCREMENT;                                                                      
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Exercise 9:
+
+CREATE DATABASE Barn;
+
+mysql> CREATE DATABASE Barn;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use Barn;
+Database changed
+
+
+mysql> CREATE TABLE birds (id INT primary key auto_increment, type ENUM('rooster', 'hen', 'chick'), dateOfEntry DATE, dateBorn DATE, dateDied DATE);
+Query OK, 0 rows affected (0.02 sec)
+
+
+mysql> DESCRIBE birds;
++-------------+-------------------------------+------+-----+---------+----------------+
+| Field       | Type                          | Null | Key | Default | Extra          |
++-------------+-------------------------------+------+-----+---------+----------------+
+| id          | int(11)                       | NO   | PRI | NULL    | auto_increment |
+| type        | enum('rooster','hen','chick') | YES  |     | NULL    |                |
+| dateOfEntry | date                          | YES  |     | NULL    |                |
+| dateBorn    | date                          | YES  |     | NULL    |                |
+| dateDied    | date                          | YES  |     | NULL    |                |
++-------------+-------------------------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
